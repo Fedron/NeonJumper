@@ -28,11 +28,15 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
+        if (GameManager.Instance.gameOver) return;
+
         if (Input.GetButtonDown("Jump") && isGrounded) canJump = true;
         moveInput = Input.GetAxis("Horizontal");
     }
 
     private void FixedUpdate() {
+        if (GameManager.Instance.gameOver) return;
+
         // Jumping Logic
         if (canJump) {
             rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
@@ -52,5 +56,14 @@ public class Player : MonoBehaviour {
 
         // Horizontal movement
         rigidbody.velocity = new Vector2(moveInput * moveSpeed, rigidbody.velocity.y);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Lava")) {
+            // TODO: Play death animation
+            GameManager.Instance.GameOver();
+            rigidbody.isKinematic = true;
+            rigidbody.velocity = Vector2.zero;           
+        }
     }
 }

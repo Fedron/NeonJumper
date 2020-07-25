@@ -13,7 +13,10 @@ public class Player : MonoBehaviour {
     [SerializeField] float groundCheckHeight = 0.05f;
     [SerializeField] LayerMask groundMask;
 
-    [Space, SerializeField] GameObject jumpVFX;
+    [Header("VFX")]
+    [SerializeField] GameObject jumpVFX;
+    [SerializeField] GameObject deathVFX;
+    [SerializeField] CameraShakeProfile deathShake;
 
     private new Rigidbody2D rigidbody;
 
@@ -65,11 +68,16 @@ public class Player : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Lava")) {
-            // TODO: Play death animation
+        if (collision.CompareTag("Death") && !GameManager.Instance.gameOver) {
+            CameraShake.ShakeOnce(deathShake);
+            AudioManager.Instance.PlaySound2D("Death");
             GameManager.Instance.GameOver();
+
             rigidbody.isKinematic = true;
-            rigidbody.velocity = Vector2.zero;           
+            rigidbody.velocity = Vector2.zero;
+
+            GetComponent<SpriteRenderer>().enabled = false;
+            Instantiate(deathVFX, transform.position, Quaternion.identity);
         }
     }
 }

@@ -3,7 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
-    [SerializeField] GameObject platformPrefab;
+    [SerializeField] PlatformSpawnInfo[] platforms;
+
+    [Header("Score Circle")]
+    [SerializeField] GameObject scoreCircle;
+    [SerializeField] int minScoreCircles;
+    [SerializeField] int maxScoreCircles;
+    [SerializeField, Range(0f, 100f)] float scoreCircleSpawnChance;
+
+    [Header("Spikey Ball")]
+    [SerializeField] GameObject spikeyBall;
+    [SerializeField] int minSpikeyBalls;
+    [SerializeField] int maxSpikeyBalls;
+    [SerializeField, Range(0f, 100f)] float spikeyBallSpawnChance;
+
+    [Header("Platform Setup")]   
     [SerializeField] int numOfPlatforms;
     [SerializeField] float levelWidth;
     [SerializeField] float minY;
@@ -29,7 +43,7 @@ public class LevelGenerator : MonoBehaviour {
 
     private void Update() {
         float cameraHeight = Camera.main.transform.position.y;
-        if (cameraHeight > spawnPosition.y - 5f) {          
+        if (cameraHeight > spawnPosition.y - 5f) {
             for (int i = 0; i < numOfPlatforms; i++) {
                 SpawnPlatform();
             }
@@ -41,12 +55,55 @@ public class LevelGenerator : MonoBehaviour {
                 }
                 spawnedPlatforms.RemoveRange(0, 10);
             }
+
+            if (Random.Range(0f, 100f) < scoreCircleSpawnChance) {
+                int circlesToSpawn = Random.Range(minScoreCircles, maxScoreCircles);
+                for (int i = 0; i < circlesToSpawn; i++) {
+                    Instantiate(scoreCircle, new Vector3(
+                        Random.Range(-levelWidth, levelWidth),
+                        spawnPosition.y + Random.Range(numOfPlatforms * minY, numOfPlatforms * maxY),
+                        0f
+                    ), Quaternion.identity);
+                }
+            }
+
+            if (Random.Range(0f, 100f) < GameManager.Instance.RandomWithDifficulty(0f, spikeyBallSpawnChance)) {
+                int ballsToSpawn = GameManager.Instance.RandomWithDifficulty(minSpikeyBalls, maxSpikeyBalls);
+                for (int i = 0; i < ballsToSpawn; i++) {
+                    Instantiate(spikeyBall, new Vector3(
+                        Random.Range(-levelWidth, levelWidth),
+                        spawnPosition.y + Random.Range(numOfPlatforms * minY, numOfPlatforms * maxY),
+                        0f
+                    ), Quaternion.identity);
+                }
+            }
         }   
     }
 
     private void SpawnPlatform() {
         spawnPosition.x = Random.Range(-levelWidth, levelWidth);
         spawnPosition.y += Random.Range(minY, maxY);
-        spawnedPlatforms.Add(Instantiate(platformPrefab, spawnPosition, Quaternion.identity));
+
+        float chance = Random.Range(0f, 100f);
+        List<PlatformSpawnInfo> platformsCanSpawn = new List<PlatformSpawnInfo>();
+        foreach (PlatformSpawnInfo platform in platforms) {
+            float platformChance;
+            if (platform.difficultyBasedSpawn) platformChance = GameManager.Instance.RandomWithDifficulty(0f, platform.spawnChance);
+            else platformChance = platform.spawnChance;
+
+            if (platformChance >= chance) platformsCanSpawn.Add(platform);
+        }
+
+        GameObject platformToSpawn = platformsCanSpawn[Random.Range(0, platformsCanSpawn.Count)].platform;
+        spawnedPlatforms.Add(Instantiate(platformToSpawn, spawnPosition, Quaternion.identity));
     }
+}
+
+[System.Serializable]
+public class PlatformSpawnInfo {
+    public GameObject platform;
+    public bool difficultyBasedSpawn;
+
+    [Range(0f, 100f)]
+    public float spawnChance;
 }

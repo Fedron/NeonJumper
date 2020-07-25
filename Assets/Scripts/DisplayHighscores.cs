@@ -10,7 +10,7 @@ public class DisplayHighscores : MonoBehaviour {
     [SerializeField] Highscores highscoreManager;
 
     private void Start() {
-        highscoreManager.AddNewHighscore(PlayerPrefs.GetString("username"), GameManager.Instance.score);
+        highscoreManager.AddNewHighscore(PlayerPrefs.GetString("username"), GameManager.Instance.overallScore);
         StartCoroutine("RefreshHighscores");
     }
 

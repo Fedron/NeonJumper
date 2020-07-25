@@ -9,17 +9,27 @@ public class LevelGenerator : MonoBehaviour {
     [SerializeField] float minY;
     [SerializeField] float maxY;
 
+    [Header("Background")]
+    [SerializeField] Sprite[] possibleBackgrounds;
+    [SerializeField] SpriteRenderer[] backgroundSprites;
+
     Vector3 spawnPosition = new Vector3(0f, 6.75f);
     List<GameObject> spawnedPlatforms = new List<GameObject>();
 
     private void Start() {
+        Sprite chosenBackground = possibleBackgrounds[Random.Range(0, possibleBackgrounds.Length)];
+        foreach (SpriteRenderer sr in backgroundSprites) {
+            sr.sprite = chosenBackground;
+        }
+
         for (int i = 0; i < numOfPlatforms; i++) {
             SpawnPlatform();
         }
     }
 
     private void Update() {
-        if (Camera.main.transform.position.y > spawnPosition.y - 5f) {          
+        float cameraHeight = Camera.main.transform.position.y;
+        if (cameraHeight > spawnPosition.y - 5f) {          
             for (int i = 0; i < numOfPlatforms; i++) {
                 SpawnPlatform();
             }
@@ -31,7 +41,7 @@ public class LevelGenerator : MonoBehaviour {
                 }
                 spawnedPlatforms.RemoveRange(0, 10);
             }
-        }
+        }   
     }
 
     private void SpawnPlatform() {

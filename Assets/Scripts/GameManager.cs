@@ -7,6 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
+    [SerializeField] AudioClip gameTheme;
     [SerializeField] Player player;
 
     [Header("UI")]
@@ -16,10 +17,11 @@ public class GameManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI gameOverScoreText;
 
     [HideInInspector] public bool gameOver { get; private set; }
-    private int score = 0;
+    [HideInInspector] public int score { get; private set; }
 
     private void Awake() {
         Instance = this;
+        AudioManager.Instance.PlayMusic(gameTheme);
     }
 
     private void Update() {
@@ -33,9 +35,15 @@ public class GameManager : MonoBehaviour {
 
         gameOverScoreText.text = string.Concat("You reached a score of ", score.ToString());
         gameOverUI.SetActive(true);
+
+        AudioManager.Instance.PlaySound2D("Game Over");
     }
 
     public void RetryButton() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void MainMenuButton() {
+        SceneManager.LoadScene(0);
     }
 }

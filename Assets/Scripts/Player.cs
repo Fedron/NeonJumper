@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     [SerializeField] float groundCheckHeight = 0.05f;
     [SerializeField] LayerMask groundMask;
 
+    [Space, SerializeField] GameObject jumpVFX;
+
     private new Rigidbody2D rigidbody;
 
     private Vector2 playerSize;
@@ -30,7 +32,11 @@ public class Player : MonoBehaviour {
     private void Update() {
         if (GameManager.Instance.gameOver) return;
 
-        if (Input.GetButtonDown("Jump") && isGrounded) canJump = true;
+        if (Input.GetButtonDown("Jump") && isGrounded) {
+            canJump = true;
+            AudioManager.Instance.PlaySound2D("Jump");
+            Destroy(Instantiate(jumpVFX, new Vector3(transform.position.x, transform.position.y - (playerSize.y / 2), transform.position.z), Quaternion.identity), 0.5f);
+        }
         moveInput = Input.GetAxis("Horizontal");
     }
 

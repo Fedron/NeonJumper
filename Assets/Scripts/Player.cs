@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    [SerializeField] SpriteRenderer sr;
+
     [Header("Movement")]
     [SerializeField] float moveSpeed = 6f;
 
@@ -19,6 +21,7 @@ public class Player : MonoBehaviour {
     [SerializeField] CameraShakeProfile deathShake;
 
     private new Rigidbody2D rigidbody;
+    private Animator animator;
 
     private Vector2 playerSize;
     private Vector2 boxSize;
@@ -26,10 +29,28 @@ public class Player : MonoBehaviour {
     private bool isGrounded;
     private float moveInput;
 
+    private bool hasExtraLife; // Is the power up bought
+    private bool usedExtraLife; // Has the extra life been used in game
+
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         playerSize = GetComponent<BoxCollider2D>().size;
         boxSize = new Vector2(playerSize.x, groundCheckHeight);
+
+        sr.sprite = Resources.Load<Sprite>(PlayerPrefs.GetInt("activeSkin", 0).ToString());
+        hasExtraLife = PlayerPrefs.GetInt("Extra Life-bought", 0) == 1 ? true : false;
+
+        PlayerPrefs.DeleteKey("Extra Life-bought");
+        PlayerPrefs.DeleteKey("Longer Fall Delay-bought");
+        PlayerPrefs.DeleteKey("Super Bouncy-bought");
+        PlayerPrefs.DeleteKey("Slower Lava-bought");
+        PlayerPrefs.DeleteKey("Default-bought");
+        PlayerPrefs.DeleteKey("Candy Square-bought");
+        PlayerPrefs.DeleteKey("Ghostly-bought");
+        PlayerPrefs.DeleteKey("Posh Square-bought");
+        PlayerPrefs.DeleteKey("Smiley-bought");
+        PlayerPrefs.DeleteKey("Wizard-bought");
     }
 
     private void Update() {
@@ -67,17 +88,33 @@ public class Player : MonoBehaviour {
         rigidbody.velocity = new Vector2(moveInput * moveSpeed, rigidbody.velocity.y);
     }
 
+    private void Die() {
+        CameraShake.ShakeOnce(deathShake);
+        AudioManager.Instance.PlaySound2D("Death");
+        GameManager.Instance.GameOver();
+
+        rigidbody.isKinematic = true;
+        rigidbody.velocity = Vector2.zero;
+
+        sr.enabled = false;
+        Instantiate(deathVFX, transform.position, Quaternion.identity);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Death") && !GameManager.Instance.gameOver) {
-            CameraShake.ShakeOnce(deathShake);
-            AudioManager.Instance.PlaySound2D("Death");
-            GameManager.Instance.GameOver();
+            if (hasExtraLife && !usedExtraLife) {
+                usedExtraLife = true;
+                AudioManager.Instance.PlaySound2D("Extra Life");
+                animator.SetTrigger("ExtraLife");
 
-            rigidbody.isKinematic = true;
-            rigidbody.velocity = Vector2.zero;
+                rigidbody.AddForce(Vector2.up * Random.Range(10f, 20f), ForceMode2D.Impulse);
+            } else {
+                Die();
+            }
+        }
 
-            GetComponent<SpriteRenderer>().enabled = false;
-            Instantiate(deathVFX, transform.position, Quaternion.identity);
+        if (collision.CompareTag("Lava") && !GameManager.Instance.gameOver) {
+            Die();
         }
     }
 }

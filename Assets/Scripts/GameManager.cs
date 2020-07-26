@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField] GameObject gameOverUI;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI gameOverScoreText;
+    [SerializeField] TextMeshProUGUI moneyText;
+    [SerializeField] TextMeshProUGUI gameOverIncMoneyText;
+    [SerializeField] TextMeshProUGUI gameOverTotalMoneyText;
 
     [HideInInspector] public bool gameOver { get; private set; }
     [HideInInspector] public int height { get; private set; }
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour {
         height = Mathf.RoundToInt(Mathf.Max(height, player.transform.position.y - 7.75f));
         overallScore = height + score;
         scoreText.text = overallScore.ToString();
+        moneyText.text = string.Concat("+$", score.ToString());
     }
 
     public float RandomWithDifficulty(float min, float max) {
@@ -55,9 +59,16 @@ public class GameManager : MonoBehaviour {
         gameUI.SetActive(false);
 
         gameOverScoreText.text = string.Concat("You reached a score of ", overallScore.ToString());
+        gameOverIncMoneyText.text = string.Concat("+$", score.ToString());      
         gameOverUI.SetActive(true);
 
+        PlayerPrefs.SetInt("money", PlayerPrefs.GetInt("money", 0) + score);
+        gameOverTotalMoneyText.text = string.Concat("$", PlayerPrefs.GetInt("money", 0).ToString());
         AudioManager.Instance.PlaySound2D("Game Over");
+    }
+
+    public void ShopButton() {
+        SceneManager.LoadScene(2);
     }
 
     public void RetryButton() {

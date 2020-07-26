@@ -15,6 +15,10 @@ public class Lava : MonoBehaviour {
 
         rigidbody = GetComponent<Rigidbody2D>();
         Invoke("StartMoving", startDelay);
+
+        if (PlayerPrefs.GetInt("Slower Lava-bought", 0) == 1) {
+            speedIncrease = speedIncrease / 2;
+        }
     }
 
     private void FixedUpdate() {

@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MenuManager : MonoBehaviour {
-    [SerializeField] TextMeshProUGUI usernameText;
+    [SerializeField] TextMeshProUGUI moneyText;
+
+    [Space, SerializeField] TextMeshProUGUI usernameText;
     [SerializeField] TMP_InputField usernameInput;
     [SerializeField] Button confirmUsernameButton;
     [SerializeField] GameObject usernameInputUI;
@@ -16,6 +18,7 @@ public class MenuManager : MonoBehaviour {
     [SerializeField] AudioClip gameTheme;
 
     private void Start() {
+        PlayerPrefs.SetInt("Default-bought", 1);
         AudioManager.Instance.PlayMusic(gameTheme);
 
         if (PlayerPrefs.GetString("username", "") == "") {
@@ -24,6 +27,7 @@ public class MenuManager : MonoBehaviour {
         }
 
         usernameText.text = string.Concat("Username: ", PlayerPrefs.GetString("username", ""));
+        moneyText.text = string.Concat("$", PlayerPrefs.GetInt("money", 0));
     }
 
     private void OnEnable() {
@@ -60,6 +64,10 @@ public class MenuManager : MonoBehaviour {
 
     public void PlayGame() {
         SceneManager.LoadScene(1);
+    }
+
+    public void ShopButton() {
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame() {

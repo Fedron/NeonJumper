@@ -17,7 +17,7 @@ public class FallingPlatform : Platform {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
-            Invoke("Fall", fallDelay);
+            Invoke("Fall", PlayerPrefs.GetInt("Longer Fall Delay-bought", 0) == 1 ? fallDelay * 2f : fallDelay);
         }
     }
 }

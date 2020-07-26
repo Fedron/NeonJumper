@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136b3dde1d37eb94b9f22329f931192d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3258635095662794891}
+  boxCollider: {fileID: 3258635095662794889}
   minWidth: 2
   maxWidth: 5
   spikePrefab: {fileID: 7236078187496062961, guid: 2ffe4d301a6a3d04883c63b14fd222ee,

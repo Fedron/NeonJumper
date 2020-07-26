@@ -7,9 +7,12 @@ public class Lava : MonoBehaviour {
     [SerializeField] float speedIncrease;
 
     private new Rigidbody2D rigidbody;
-    bool canMove;
+    private bool canMove;
+    private float startTime;
 
     private void Start() {
+        startTime = Time.time;
+
         rigidbody = GetComponent<Rigidbody2D>();
         Invoke("StartMoving", startDelay);
     }
@@ -22,7 +25,7 @@ public class Lava : MonoBehaviour {
             return;
         }
 
-        rigidbody.velocity = new Vector2(0f, Time.time * speedIncrease);
+        rigidbody.velocity = new Vector2(0f, (Time.time - startTime) * speedIncrease);
     }
 
     private void StartMoving() {

@@ -141,5 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32145833e3d2e2144a50f72ebfd9f5cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3258635095662794891}
+  boxCollider: {fileID: 3258635095662794889}
   minWidth: 1
   maxWidth: 5

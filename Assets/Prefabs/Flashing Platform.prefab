@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3258635095662794891}
   - component: {fileID: 3258635095662794889}
   - component: {fileID: 8620566644999258976}
-  - component: {fileID: 7028811120125032742}
-  - component: {fileID: 938058866867963877}
+  - component: {fileID: 7633583262678525539}
+  - component: {fileID: 3093734640356817702}
   m_Layer: 8
-  m_Name: Vertical Platform
+  m_Name: Flashing Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f7b59a6f912cb0e46a60b98cd5b29b28, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9306717, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -130,28 +130,26 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 90
---- !u!50 &7028811120125032742
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!95 &7633583262678525539
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3258635095662794892}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &938058866867963877
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c2ecc429089da947bd2f8850afe89cc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3093734640356817702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,15 +158,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3258635095662794892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34d3ad1a207706a428f7bce032bffdba, type: 3}
+  m_Script: {fileID: 11500000, guid: 0786ac47587c02542a0bc16e09ef6752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3258635095662794891}
   boxCollider: {fileID: 3258635095662794889}
-  minWidth: 2
+  minWidth: 1
   maxWidth: 5
-  moveDirection: 1
-  minMoveSpeed: 1
-  maxMoveSpeed: 5
-  minPosition: 1
-  maxPosition: 3
+  minFlashInterval: 1
+  maxFlashInterval: 3
+  minIdleTime: 1
+  maxIdleTime: 3

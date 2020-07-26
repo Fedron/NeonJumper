@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3cfb2b89385f1d4c99afd1e80b685ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3258635095662794891}
+  boxCollider: {fileID: 3258635095662794889}
   minWidth: 1
   maxWidth: 2
   bounceVFX: {fileID: 4836767956757753571, guid: dcf83c779842dca4b92583674f239d63,

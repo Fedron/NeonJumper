@@ -322,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 3258635095662794890, guid: 0a12fc5f3e087514bbda41dde40e06c0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3258635095662794890, guid: 0a12fc5f3e087514bbda41dde40e06c0,
         type: 3}
@@ -6519,7 +6519,7 @@ MonoBehaviour:
   - platform: {fileID: 3258635095662794892, guid: b7b5cd0b41a562f4d9ecf1bafa324402,
       type: 3}
     difficultyBasedSpawn: 1
-    spawnChance: 30
+    spawnChance: 50
   - platform: {fileID: 3258635095662794892, guid: b5603b9501575404aa0c7e42650f7b71,
       type: 3}
     difficultyBasedSpawn: 0
@@ -6532,6 +6532,14 @@ MonoBehaviour:
       type: 3}
     difficultyBasedSpawn: 1
     spawnChance: 50
+  - platform: {fileID: 3258635095662794892, guid: fb7d0b8c36f0431469ab942331dedee8,
+      type: 3}
+    difficultyBasedSpawn: 1
+    spawnChance: 60
+  - platform: {fileID: 3258635095662794892, guid: 74b21d03d2075504e86c5684bd2c72a6,
+      type: 3}
+    difficultyBasedSpawn: 1
+    spawnChance: 60
   scoreCircle: {fileID: 6096411627453791533, guid: 86aef0530ea76ab46bba75e4ab8037d9,
     type: 3}
   minScoreCircles: 1
@@ -6943,7 +6951,7 @@ RectTransform:
   - {fileID: 1830678551}
   - {fileID: 1695251594}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7342,7 +7350,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1830678550
 GameObject:

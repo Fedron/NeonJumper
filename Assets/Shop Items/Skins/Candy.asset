@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Candy Square
   itemDesc: Odd looking square but very sweet
   sprite: {fileID: 21300000, guid: 4912ce14eff21ad4b9baf5d3e8f7488c, type: 3}
-  price: 0
+  price: 3000

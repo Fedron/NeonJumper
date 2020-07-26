@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Ghostly
   itemDesc: Back from the dead to continue his climb
   sprite: {fileID: 21300000, guid: 61504a5c84086d54b8606c04dda77e33, type: 3}
-  price: 0
+  price: 10000

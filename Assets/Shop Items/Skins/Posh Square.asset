@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Posh Square
   itemDesc: Significantly more sophisticated than default square
   sprite: {fileID: 21300000, guid: e04ae75b443cc984aaefa2c014588901, type: 3}
-  price: 0
+  price: 5000

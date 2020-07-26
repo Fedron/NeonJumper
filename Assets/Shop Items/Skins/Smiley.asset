@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Smiley
   itemDesc: Enjoys any adventure he goes on
   sprite: {fileID: 21300000, guid: 068f211b04255e84492249cf7696e093, type: 3}
-  price: 0
+  price: 2000

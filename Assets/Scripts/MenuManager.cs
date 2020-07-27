@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MenuManager : MonoBehaviour {
+    [SerializeField] SceneFader sceneFader;
     [SerializeField] TextMeshProUGUI moneyText;
 
     [Space, SerializeField] TextMeshProUGUI usernameText;
@@ -63,11 +63,11 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void PlayGame() {
-        SceneManager.LoadScene(1);
+        sceneFader.ChangeScene(1);
     }
 
     public void ShopButton() {
-        SceneManager.LoadScene(2);
+        sceneFader.ChangeScene(2);
     }
 
     public void QuitGame() {

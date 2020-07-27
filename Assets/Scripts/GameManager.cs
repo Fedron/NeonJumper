@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
+    [SerializeField] SceneFader sceneFader;
     [SerializeField] AudioClip gameTheme;
     [SerializeField] Player player;
 
@@ -68,14 +68,14 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ShopButton() {
-        SceneManager.LoadScene(2);
+        sceneFader.ChangeScene(2);
     }
 
     public void RetryButton() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        sceneFader.ChangeScene(1);
     }
 
     public void MainMenuButton() {
-        SceneManager.LoadScene(0);
+        sceneFader.ChangeScene(0);
     }
 }

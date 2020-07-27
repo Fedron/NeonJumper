@@ -50,3 +50,6 @@ TagManager:
   - name: UI
     uniqueID: 3152134137
     locked: 0
+  - name: Scene Fade
+    uniqueID: 944143093
+    locked: 0

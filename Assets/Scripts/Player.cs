@@ -40,17 +40,6 @@ public class Player : MonoBehaviour {
 
         sr.sprite = Resources.Load<Sprite>(PlayerPrefs.GetInt("activeSkin", 0).ToString());
         hasExtraLife = PlayerPrefs.GetInt("Extra Life-bought", 0) == 1 ? true : false;
-
-        //PlayerPrefs.DeleteKey("Extra Life-bought");
-        //PlayerPrefs.DeleteKey("Longer Fall Delay-bought");
-        //PlayerPrefs.DeleteKey("Super Bouncy-bought");
-        //PlayerPrefs.DeleteKey("Slower Lava-bought");
-        //PlayerPrefs.DeleteKey("Default-bought");
-        //PlayerPrefs.DeleteKey("Candy Square-bought");
-        //PlayerPrefs.DeleteKey("Ghostly-bought");
-        //PlayerPrefs.DeleteKey("Posh Square-bought");
-        //PlayerPrefs.DeleteKey("Smiley-bought");
-        //PlayerPrefs.DeleteKey("Wizard-bought");
     }
 
     private void Update() {

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ShopManager : MonoBehaviour {
+    [SerializeField] SceneFader sceneFader;
     [SerializeField] AudioClip gameTheme;
     [SerializeField] TextMeshProUGUI moneyText;
-    [SerializeField] Button initialButton;
+
+    [Space, SerializeField] Image powerupShopButton;
+    [SerializeField] Image skinShopButton;
 
     [Space, SerializeField] GameObject powerupsShop;
     [SerializeField] GameObject skinsShop;
@@ -16,7 +18,8 @@ public class ShopManager : MonoBehaviour {
     private void Start() {
         UpdateMoneyText();
         AudioManager.Instance.PlayMusic(gameTheme);
-        initialButton.Select();
+        powerupShopButton.color = new Color(0, 0, 0, 0.39f);
+        skinShopButton.color = new Color(1, 1, 1, 0.39f);
     }
 
     public void UpdateMoneyText() {
@@ -24,11 +27,17 @@ public class ShopManager : MonoBehaviour {
     }
 
     public void ViewPowerupShop() {
+        powerupShopButton.color = new Color(0, 0, 0, 0.39f); ;
+        skinShopButton.color = new Color(1, 1, 1, 0.39f);
+
         powerupsShop.SetActive(true);
         skinsShop.SetActive(false);
     }
 
     public void ViewSkinsShop() {
+        powerupShopButton.color = new Color(1, 1, 1, 0.39f);
+        skinShopButton.color = new Color(0, 0, 0, 0.39f); ;
+
         powerupsShop.SetActive(false);
         skinsShop.SetActive(true);
     }
@@ -50,10 +59,10 @@ public class ShopManager : MonoBehaviour {
     }
 
     public void MenuButton() {
-        SceneManager.LoadScene(0);
+        sceneFader.ChangeScene(0);
     }
 
     public void PlayButton() {
-        SceneManager.LoadScene(1);
+        sceneFader.ChangeScene(1);
     }
 }

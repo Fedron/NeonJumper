@@ -45,7 +45,7 @@ public class Player : MonoBehaviour {
     private void Update() {
         if (GameManager.Instance.gameOver) return;
 
-        if (Input.GetButtonDown("Jump") && isGrounded) {
+        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded) {
             canJump = true;
             AudioManager.Instance.PlaySound2D("Jump");
             Destroy(Instantiate(jumpVFX, new Vector3(transform.position.x, transform.position.y - (playerSize.y / 2), transform.position.z), Quaternion.identity), 0.5f);
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour {
 
         if (rigidbody.velocity.y < 0) {
             rigidbody.gravityScale = fallMultiplier;
-        } else if (rigidbody.velocity.y > 0 && !Input.GetButton("Jump")) {
+        } else if (rigidbody.velocity.y > 0 && !(Input.GetButton("Jump") || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))) {
             rigidbody.gravityScale = lowJumpMultiplier;
         } else {
             rigidbody.gravityScale = 1f;

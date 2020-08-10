@@ -7,7 +7,7 @@ public class SoundToggle : MonoBehaviour {
     [SerializeField] Toggle toggle;
 
     private void Start() {
-        if (PlayerPrefs.GetFloat("sfx vol") == 0f) {
+        if (PlayerPrefs.GetFloat("sfx vol", 1f) == 0f) {
             toggle.isOn = false;
         } else {
             toggle.isOn = true;
